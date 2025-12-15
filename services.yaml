@@ -1,0 +1,11 @@
+services:
+  _defaults:
+    autowire: true
+
+  D3\OxLogIQ_HttpApi\Interfaces\ConfigurationInterface:
+    class: D3\OxLogIQ_HttpApi\Configuration
+    public: true
+
+  D3\OxLogIQ_HttpApi\Providers\HttpApiHandlerProvider:
+    tags:
+      - { name: oxlogiq.provider, priority: 100 }
