@@ -1,0 +1,56 @@
+{
+  "name": "d3/oxlogiq_http_api",
+  "description": "",
+  "type": "oxideshop-component",
+  "keywords": [
+    "oxid",
+    "eShop",
+    "logger",
+    "monolog",
+    "alerting",
+    "d3",
+    "HTTP API"
+  ],
+  "authors": [
+    {
+        "name": "D3 Data Development (Inh. Thomas Dartsch)",
+        "email": "info@shopmodule.com",
+        "homepage": "https://www.d3data.de",
+        "role": "Owner"
+    }
+  ],
+  "homepage": "https://www.oxidmodule.com/",
+  "license": [
+    "MIT"
+  ],
+  "require": {
+    "d3/oxlogiq": "^1.2",
+    "guzzlehttp/guzzle": "^7.9"
+  },
+  "require-dev": {
+    "d3/testingtools": "^1.2",
+    "phpunit/phpunit": "^11.0",
+    "friendsofphp/php-cs-fixer": "^3.75",
+    "phpstan/phpstan": "^1.10"
+  },
+  "autoload": {
+    "psr-4": {
+      "D3\\OxLogIQ_HttpApi\\": "./"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "D3\\OxLogIQ_HttpApi\\Tests": "./Tests"
+    }
+  },
+  "scripts": {
+    "php-cs-fixer": "./vendor/bin/php-cs-fixer fix --config=vendor/d3/oxlogiq_http_api/.php-cs-fixer.php",
+
+    "phpstan": "./vendor/bin/phpstan --configuration=vendor/d3/oxlogiq_http_api/phpstan.neon analyse",
+    "phpstan-report": "./vendor/bin/phpstan --configuration=vendor/d3/oxlogiq_http_api/phpstan.neon analyse --error-format=json > reports/phpstan/oxlogiq_http_api/phpstan.report.json",
+
+    "phpunit": "XDEBUG_MODE=coverage ./vendor/bin/phpunit --config=vendor/d3/oxlogiq_http_api --no-coverage",
+    "phpunit-coverage": "XDEBUG_MODE=coverage ./vendor/bin/phpunit --config=vendor/d3/oxlogiq_http_api --coverage-html=reports/phpunit/oxlogiq_http_api",
+    "phpunit-path-coverage": "XDEBUG_MODE=coverage ./vendor/bin/phpunit --config=vendor/d3/oxlogiq_http_api --coverage-html=reports/phpunit/oxlogiq_http_api --path-coverage"
+  }
+}
