@@ -18,14 +18,17 @@ declare(strict_types=1);
 namespace D3\OxLogIQ_HttpApi\Providers;
 
 use D3\LoggerFactory\LoggerFactory;
-use D3\OxLogIQ\Handlers\HttpApiHandler;
 use D3\OxLogIQ\Interfaces\ProviderInterface;
+use D3\OxLogIQ_HttpApi\Handlers\HttpApiHandler;
 use D3\OxLogIQ_HttpApi\Interfaces\ConfigurationInterface;
 use Monolog\Logger;
 use OxidEsales\EshopCommunity\Internal\Framework\Logger\Configuration\MonologConfigurationInterface;
 
 class HttpApiHandlerProvider implements ProviderInterface
 {
+    /**
+     * @codeCoverageIgnore
+     */
     public function __construct(
         protected MonologConfigurationInterface $monologConfiguration,
         protected ConfigurationInterface $configuration

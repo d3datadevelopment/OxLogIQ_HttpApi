@@ -19,6 +19,7 @@ namespace D3\OxLogIQ_HttpApi\Handlers;
 
 use D3\OxLogIQ\Release\ReleaseServiceInterface;
 use DateTime;
+use JetBrains\PhpStorm\NoReturn;
 use Monolog\Handler\AbstractProcessingHandler;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\ShopVersion;
@@ -46,6 +47,7 @@ class HttpApiHandler extends AbstractProcessingHandler
         parent::__construct($level, $bubble);
     }
 
+    #[NoReturn]
     protected function write(array $record): void
     {
         try {
@@ -63,6 +65,7 @@ class HttpApiHandler extends AbstractProcessingHandler
         }
     }
 
+    #[NoReturn]
     protected function getRequest(array $record): RequestInterface
     {
         $json = json_encode($this->getData($record));

@@ -2,9 +2,17 @@ services:
   _defaults:
     autowire: true
 
+  oxlogiq_http_api.oxid.ConfigFile:
+    class: OxidEsales\Facts\Config\ConfigFile
+    factory:  'oxNew'
+    arguments:
+      - OxidEsales\Facts\Config\ConfigFile
+
   D3\OxLogIQ_HttpApi\Interfaces\ConfigurationInterface:
     class: D3\OxLogIQ_HttpApi\Configuration
     public: true
+    arguments:
+      $factsConfigFile: '@oxlogiq_http_api.oxid.ConfigFile'
 
   D3\OxLogIQ_HttpApi\Providers\HttpApiHandlerProvider:
     tags:

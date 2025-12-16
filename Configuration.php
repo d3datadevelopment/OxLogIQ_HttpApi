@@ -31,11 +31,13 @@ class Configuration implements ConfigurationInterface
     public const CONFIGVAR_HTTPAPI_ENDPOINT = 'oxlogiq_httpApiEndpoint';
     public const CONFIGVAR_HTTPAPI_KEY      = 'oxlogiq_httpApiKey';
 
-    protected ConfigFile $factsConfigFile;
-
-    public function __construct(protected ReleaseServiceInterface $releaseService)
-    {
-        $this->factsConfigFile = new ConfigFile();
+    /**
+     * @codeCoverageIgnore
+     */
+    public function __construct(
+        protected ReleaseServiceInterface $releaseService,
+        protected ConfigFile $factsConfigFile
+    ) {
     }
 
     public function hasHttpApiEndpoint(): bool
