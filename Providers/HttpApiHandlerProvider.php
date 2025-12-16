@@ -50,4 +50,12 @@ class HttpApiHandlerProvider implements ProviderInterface
             )->setBuffering();
         }
     }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public static function getPriority(): int
+    {
+        return 100;
+    }
 }
