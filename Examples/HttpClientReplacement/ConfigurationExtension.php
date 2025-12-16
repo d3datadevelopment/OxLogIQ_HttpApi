@@ -15,78 +15,21 @@
 
 namespace D3\LoggerExtension;
 
-use D3\OxLogIQ\Interfaces\MonologConfigurationInterface as OxLogIQConfigurationInterfaceAlias;
 use D3\OxLogIQ\MonologLoggerFactory;
+use D3\OxLogIQ_HttpApi\Interfaces\ConfigurationInterface;
 use Nimbly\Shuttle\Shuttle;
 use Nyholm\Psr7\Factory\Psr17Factory;
-use OxidEsales\EshopCommunity\Internal\Framework\Logger\Configuration\MonologConfigurationInterface;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 
-class ConfigurationExtension implements MonologConfigurationInterface, OxLogIQConfigurationInterfaceAlias
+class ConfigurationExtension implements ConfigurationInterface
 {
     /**
      * @param MonologLoggerFactory $innerConfig
      */
-    public function __construct(
-        protected MonologConfigurationInterface $innerConfiguration
-    ) {
-    }
-
-    public function getLoggerName()
+    public function __construct(protected ConfigurationInterface $innerConfiguration)
     {
-        return $this->innerConfiguration->getLoggerName();
-    }
-
-    public function getLogFilePath()
-    {
-        return $this->innerConfiguration->getLogFilePath();
-    }
-
-    public function getLogLevel()
-    {
-        return $this->innerConfiguration->getLogLevel();
-    }
-
-    public function getRetentionDays(): ?int
-    {
-        return $this->innerConfiguration->getRetentionDays();
-    }
-
-    public function useAlertMail(): bool
-    {
-        return $this->innerConfiguration->useAlertMail();
-    }
-
-    public function hasAlertMailRecipient(): bool
-    {
-        return $this->innerConfiguration->hasAlertMailRecipient();
-    }
-
-    public function getAlertMailRecipients(): ?array
-    {
-        return $this->innerConfiguration->getAlertMailRecipients();
-    }
-
-    public function getAlertMailLevel(): string
-    {
-        return $this->innerConfiguration->getAlertMailLevel();
-    }
-
-    public function getAlertMailSubject(): string
-    {
-        return $this->innerConfiguration->getAlertMailSubject();
-    }
-
-    public function getAlertMailFrom(): ?string
-    {
-        return $this->innerConfiguration->getAlertMailFrom();
-    }
-
-    public function getRelease(): string
-    {
-        return $this->innerConfiguration->getRelease();
     }
 
     public function hasHttpApiEndpoint(): bool

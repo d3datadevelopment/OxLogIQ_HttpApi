@@ -23,7 +23,7 @@
     </include>
     <exclude>
       <directory suffix=".php">Tests/</directory>
-      <directory suffix=".php">examples/</directory>
+      <directory suffix=".php">Examples/</directory>
       <file>.php-cs-fixer.php</file>
     </exclude>
   </source>
