@@ -39,6 +39,7 @@ class ConfigurationTest extends TestCase
 
     /**
      * @throws ReflectionException
+     * @dataProvider hasHttpApiEndpointDataProvider
      */
     #[Test]
     #[DataProvider('hasHttpApiEndpointDataProvider')]
@@ -76,6 +77,7 @@ class ConfigurationTest extends TestCase
 
     /**
      * @throws ReflectionException
+     * @dataProvider getHttpApiKeyDataProvider
      */
     #[Test]
     #[DataProvider('getHttpApiKeyDataProvider')]

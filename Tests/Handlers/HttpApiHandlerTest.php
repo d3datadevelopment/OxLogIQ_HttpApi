@@ -94,6 +94,7 @@ class HttpApiHandlerTest extends TestCase
 
     /**
      * @throws ReflectionException
+     * @dataProvider writeDataProvider
      */
     #[Test]
     #[DataProvider('writeDataProvider')]
@@ -173,11 +174,8 @@ class HttpApiHandlerTest extends TestCase
     }
 
     /**
-     * @param $date
-     * @param $expectedDate
-     *
-     * @return void
      * @throws ReflectionException
+     * @dataProvider getDataDataProvider
      */
     #[Test]
     #[DataProvider('getDataDataProvider')]
@@ -216,6 +214,7 @@ class HttpApiHandlerTest extends TestCase
 
     /**
      * @throws ReflectionException
+     * @dataProvider getReleaseDataProvider
      */
     #[Test]
     #[DataProvider('getReleaseDataProvider')]

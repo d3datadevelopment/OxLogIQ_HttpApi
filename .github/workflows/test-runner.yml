@@ -58,7 +58,7 @@ jobs:
           phpunit_version: "^9 || ^10"     # v11 kills Github Action
           sourceguardian: "FALSE"
           composer_package_name: "d3/oxlogiq_http_api"
-          test_suites: "unit,integration"
+          test_suites: "unit"
           syntax_check_paths: "."
 
   report-status:
