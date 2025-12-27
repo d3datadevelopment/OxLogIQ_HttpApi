@@ -15,7 +15,7 @@
 
 declare(strict_types=1);
 
-namespace D3\OxLogIQ_HttpApi\Providers;
+namespace D3\OxLogIQ_HttpApi\Providers\Handlers;
 
 use D3\LoggerFactory\LoggerFactory;
 use D3\OxLogIQ\Interfaces\ProviderInterface;
@@ -24,7 +24,7 @@ use D3\OxLogIQ_HttpApi\Interfaces\ConfigurationInterface;
 use Monolog\Logger;
 use OxidEsales\EshopCommunity\Internal\Framework\Logger\Configuration\MonologConfigurationInterface;
 
-class HttpApiHandlerProvider implements ProviderInterface
+class HandlerProvider implements ProviderInterface
 {
     /**
      * @codeCoverageIgnore
@@ -35,20 +35,23 @@ class HttpApiHandlerProvider implements ProviderInterface
     ) {
     }
 
-    public function register(LoggerFactory $factory): void
+    public function isActive(): bool
     {
-        if ($this->configuration->hasHttpApiEndpoint()) {
-            $factory->addOtherHandler(
-                (new HttpApiHandler(
-                    $this->configuration->getHttpApiEndpoint(),
-                    $this->configuration->getHttpApiKey(),
-                    Logger::toMonologLevel($this->monologConfiguration->getLogLevel()),
-                    $this->configuration->getHttpClient(),
-                    $this->configuration->getHttpRequestFactory(),
-                    $this->configuration->getHttpStreamFactory(),
-                ))
-            )->setBuffering();
-        }
+        return $this->configuration->hasHttpApiEndpoint();
+    }
+
+    public function provide(LoggerFactory $factory): void
+    {
+        $factory->addOtherHandler(
+            (new HttpApiHandler(
+                $this->configuration->getHttpApiEndpoint(),
+                $this->configuration->getHttpApiKey(),
+                Logger::toMonologLevel($this->monologConfiguration->getLogLevel()),
+                $this->configuration->getHttpClient(),
+                $this->configuration->getHttpRequestFactory(),
+                $this->configuration->getHttpStreamFactory(),
+            ))
+        )->setBuffering();
     }
 
     /**

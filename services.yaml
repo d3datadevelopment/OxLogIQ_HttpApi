@@ -14,6 +14,6 @@ services:
     arguments:
       $factsConfigFile: '@oxlogiq_http_api.oxid.ConfigFile'
 
-  D3\OxLogIQ_HttpApi\Providers\HttpApiHandlerProvider:
+  D3\OxLogIQ_HttpApi\Providers\Handlers\HandlerProvider:
     tags:
       - { name: oxlogiq.provider, default_priority_method: getPriority }
