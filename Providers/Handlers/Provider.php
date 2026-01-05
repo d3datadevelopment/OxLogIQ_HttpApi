@@ -24,7 +24,7 @@ use D3\OxLogIQ_HttpApi\Interfaces\ConfigurationInterface;
 use Monolog\Logger;
 use OxidEsales\EshopCommunity\Internal\Framework\Logger\Configuration\MonologConfigurationInterface;
 
-class HandlerProvider implements ProviderInterface
+class Provider implements ProviderInterface
 {
     /**
      * @codeCoverageIgnore

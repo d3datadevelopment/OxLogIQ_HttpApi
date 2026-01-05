@@ -21,7 +21,7 @@ use D3\LoggerFactory\LoggerFactory;
 use D3\LoggerFactory\Options\OtherLoggerHandlerOption;
 use D3\OxLogIQ\MonologConfiguration;
 use D3\OxLogIQ_HttpApi\Configuration;
-use D3\OxLogIQ_HttpApi\Providers\Handlers\HandlerProvider;
+use D3\OxLogIQ_HttpApi\Providers\Handlers\Provider;
 use D3\TestingTools\Development\CanAccessRestricted;
 use Generator;
 use GuzzleHttp\Client;
@@ -34,9 +34,9 @@ use PHPUnit\Framework\TestCase;
 use ReflectionException;
 
 #[Small]
-#[CoversMethod(HandlerProvider::class, 'isActive')]
-#[CoversMethod(HandlerProvider::class, 'provide')]
-class HandlerProviderTest extends TestCase
+#[CoversMethod(Provider::class, 'isActive')]
+#[CoversMethod(Provider::class, 'provide')]
+class ProviderTest extends TestCase
 {
     use CanAccessRestricted;
 
@@ -57,7 +57,7 @@ class HandlerProviderTest extends TestCase
             ->getMock();
         $configurationMock->expects(self::once())->method('hasHttpApiEndpoint')->willReturn($hasHttpEndpoint);
 
-        $sut = oxNew(HandlerProvider::class, $monologConfigurationMock, $configurationMock);
+        $sut = oxNew(Provider::class, $monologConfigurationMock, $configurationMock);
 
         $this->assertSame(
             $hasHttpEndpoint,
@@ -94,7 +94,7 @@ class HandlerProviderTest extends TestCase
         $configurationMock->expects(self::once())->method('getHttpRequestFactory')->willReturn(new HttpFactory());
         $configurationMock->expects(self::once())->method('getHttpStreamFactory')->willReturn(new HttpFactory());
 
-        $sut = oxNew(HandlerProvider::class, $monologConfigurationMock, $configurationMock);
+        $sut = oxNew(Provider::class, $monologConfigurationMock, $configurationMock);
 
         $mailLoggerHandlerOptionMock = $this->getMockBuilder(OtherLoggerHandlerOption::class)
             ->disableOriginalConstructor()
