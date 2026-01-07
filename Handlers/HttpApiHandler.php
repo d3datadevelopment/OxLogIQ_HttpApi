@@ -19,7 +19,6 @@ namespace D3\OxLogIQ_HttpApi\Handlers;
 
 use D3\OxLogIQ\Release\ReleaseServiceInterface;
 use DateTime;
-use JetBrains\PhpStorm\NoReturn;
 use Monolog\Handler\AbstractProcessingHandler;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\ShopVersion;
@@ -36,8 +35,8 @@ use RuntimeException;
 class HttpApiHandler extends AbstractProcessingHandler
 {
     public function __construct(
-        protected $endpoint,
-        protected $apiKey,
+        protected ?string $endpoint,
+        protected ?string $apiKey,
         protected $level,
         protected ClientInterface $client,
         protected RequestFactoryInterface $requestFactory,
@@ -47,7 +46,6 @@ class HttpApiHandler extends AbstractProcessingHandler
         parent::__construct($level, $bubble);
     }
 
-    #[NoReturn]
     protected function write(array $record): void
     {
         try {
@@ -65,11 +63,18 @@ class HttpApiHandler extends AbstractProcessingHandler
         }
     }
 
-    #[NoReturn]
     protected function getRequest(array $record): RequestInterface
     {
+        if (!$this->endpoint) {
+            throw new RuntimeException('Endpoint not set');
+        }
+
+        if (!$this->apiKey) {
+            throw new RuntimeException('ApiKey not set');
+        }
+
         $json = json_encode($this->getData($record));
-        $body = $this->streamFactory->createStream($json);
+        $body = $this->streamFactory->createStream((string) $json);
 
         return $this->requestFactory
             ->createRequest('POST', $this->endpoint)
