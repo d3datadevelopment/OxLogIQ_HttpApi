@@ -37,6 +37,7 @@ use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 use ReflectionException;
+use RuntimeException;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 
 #[Small]
@@ -150,17 +151,23 @@ class HttpApiHandlerTest extends TestCase
 
     /**
      * @throws ReflectionException
+     * @dataProvider getRequestDataProvider
      */
     #[Test]
-    public function testGetRequest(): void
+    #[DataProvider('getRequestDataProvider')]
+    public function testGetRequest(?string $endpoint, ?string $apiKey, bool $expectException): void
     {
         $factory = new HttpFactory();
 
         $sut = $this->getMockBuilder(HttpApiHandler::class)
-            ->setConstructorArgs(['endpoint', 'apikey', Logger::DEBUG, new ClientStub(), $factory, $factory])
+            ->setConstructorArgs([$endpoint, $apiKey, Logger::DEBUG, new ClientStub(), $factory, $factory])
             ->onlyMethods(['getData'])
             ->getMock();
         $sut->method('getData')->willReturn(['message' => 'foobar']);
+
+        if ($expectException) {
+            $this->expectException(RuntimeException::class);
+        }
 
         $request = $this->callMethod(
             $sut,
@@ -171,6 +178,14 @@ class HttpApiHandlerTest extends TestCase
         $this->assertInstanceOf(RequestInterface::class, $request);
         $this->assertSame('application/json', $request->getHeaderLine('Content-Type'));
         $this->assertSame('{"message":"foobar"}', (string) $request->getBody());
+    }
+
+    public static function getRequestDataProvider(): Generator
+    {
+        yield 'endpoint and key set' => ['endpoint', 'apikey', false];
+        yield 'endpoint missing' => [null, 'apikey', true];
+        yield 'key missing' => ['endpoint', null, true];
+        yield 'endpoint and key missing' => [null, null, true];
     }
 
     /**
