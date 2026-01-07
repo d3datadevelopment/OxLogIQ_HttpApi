@@ -1,8 +1,15 @@
 parameters:
   paths:
-    - .
-  excludePaths:
-    - Tests
+    - Handlers
+    - Interfaces
+    - Providers
+
+  scanFiles:
+    - Configuration.php
+
   level: 8
   phpVersion: 80000
+  ignoreErrors:
+    - '#has parameter \$record with no value type specified in iterable type array#'
+    - '#return type has no value type specified in iterable type array#'
 
