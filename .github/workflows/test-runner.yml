@@ -66,7 +66,7 @@ jobs:
     if: always()
     steps:
       - name: Report CI status
-        uses: d3datadevelopment/ci-actions/status-reporter@status-reporter@v1.0.0
+        uses: d3datadevelopment/ci-actions/status-reporter@status-reporter--v1.0.0
         with:
           api_status_endpoint: "${{ vars.GITEA_API }}${{ github.sha }}"
           auth_token: ${{ secrets.GITEA_TOKEN }}
